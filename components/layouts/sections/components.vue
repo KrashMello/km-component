@@ -11,7 +11,8 @@
           <li v-for="(link, i) in list.links" :key="i">
             <km-btn
               type="link"
-              color="bg-transparent border-purple-500 hover:bg-purple-400/30 hover:border-purple-400 hover:border-l-2"
+              border="left"
+              color="purple"
               x-small
               :to="link.to"
               >{{ link.title }}</km-btn

@@ -9,6 +9,7 @@
         <km-btn color="success">color success</km-btn>
         <km-btn color="warning">color warning</km-btn>
         <km-btn color="gray">color gray</km-btn>
+        <km-btn color="purple">color purple</km-btn>
         <km-btn color="transparent">transparent</km-btn>
       </div>
       <h3 class="text-3xl font-semibold">rounded</h3>
@@ -32,6 +33,13 @@
         <km-btn x-small>extra small</km-btn>
         <km-btn small>small</km-btn>
         <km-btn>normal</km-btn>
+      </div>
+      <h3 class="text-3xl font-semibold">bordes</h3>
+      <div class="flex flex-wrap gap-3">
+        <km-btn border="top" color="warning">border top</km-btn>
+        <km-btn border="left" color="danger">border left</km-btn>
+        <km-btn border="right" color="success">border right</km-btn>
+        <km-btn border="bottom" color="info">border bottom</km-btn>
       </div>
     </div>
   </layouts-sections-components>
