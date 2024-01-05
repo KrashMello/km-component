@@ -1,6 +1,13 @@
 import type { Config } from "tailwindcss";
 export default <Partial<Config>>{
-  theme: {},
+  theme: {
+    extend: {
+      backgroundPosition: {
+        "pos-0": "0% 0%",
+        "pos-100": "100% 100%",
+      },
+    },
+  },
   plugins: [require("flowbite/plugin")],
   content: [
     "./components/**/*.{vue,js,ts}",
