@@ -48,6 +48,10 @@ export default {
             title: "container",
             to: "/components/container",
           },
+          {
+            title: "table",
+            to: "/components/table",
+          },
         ],
       },
     ];
