@@ -32,27 +32,19 @@
 <script>
 export default {
   setup() {
+    const routeList = useRouter()
+      .getRoutes()
+      .map((v) => {
+        return {
+          title: v.name.replace(/(components-)/, ""),
+          to: v.path,
+        };
+      })
+      .filter((v) => v.title !== "index");
     const Lists = [
       {
         title: "componentes",
-        links: [
-          {
-            title: "toolbar",
-            to: "/components/toolbar",
-          },
-          {
-            title: "button",
-            to: "/components/button",
-          },
-          {
-            title: "container",
-            to: "/components/container",
-          },
-          {
-            title: "table",
-            to: "/components/table",
-          },
-        ],
+        links: routeList,
       },
     ];
     return {
