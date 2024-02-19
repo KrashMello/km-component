@@ -20,8 +20,7 @@ font-semibold hover:bg-opacity-90 active:bg-opacity-75 transition hover:transiti
   </NuxtLink>
   <button
     v-if="type === 'button'"
-    :data-modal-target="$attrs['data-modal-target']"
-    :data-modal-toggle="$attrs['data-modal-toggle']"
+    v-bind="$attrs"
     :class="`
 px-5
 ${
@@ -31,7 +30,7 @@ ${
 }
 ${xSmall ? 'h-5 text-xs' : small ? 'h-7 text-sm ' : 'h-10'} 
 font-semibold hover:bg-opacity-90 active:bg-opacity-75
-transition hover:transition-colors pos-0 hover:pos-100 hover:scale-110 duration-200 ease-in
+transition hover:transition-colors  hover:scale-110 duration-200 ease-in
 ${!isColor(color) ? color : colors[color]}
 ${width} 
 ${roundedSize[rounded]}

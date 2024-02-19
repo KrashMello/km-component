@@ -2,7 +2,7 @@
   <header
     :class="`w-full flex items-center px-10 justify-between 
 ${roundedSize[rounded]} 
-${fixed ? 'fixed z-50' : ''} 
+${fixed ? 'fixed z-40' : ''} 
 ${blur ? 'backdrop-blur bg-opacity-50' : ''} 
 ${heightSize[height]} 
 ${!isColor(color) ? color : colors[color]}
