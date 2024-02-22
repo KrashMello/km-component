@@ -4,13 +4,10 @@
       <h2 class="text-center text-6xl font-bold">Modales</h2>
       <km-tabs-group :tabs="tabsLists" id="modals">
         <km-tabs-content id="profile">
-          <!-- <ContentRendererMarkdown -->
-          <!--   class="text-xs" -->
-          <!--   :value="markdown.value.component" -->
-          <!-- /> -->
+          <ContentRendererMarkdown class="text-xs" :value="MDcomponents" />
         </km-tabs-content>
         <km-tabs-content id="script">
-          <!-- <ContentRendererMarkdown class="text-xs" :value="markdown.value.script" /> -->
+          <ContentRendererMarkdown class="text-xs" :value="MDscript" />
         </km-tabs-content>
       </km-tabs-group>
       <h3 class="text-3xl font-semibold">Normal</h3>
@@ -177,79 +174,65 @@
   </layouts-sections-components>
 </template>
 
-<script>
-export default {
-  async setup() {
-    const { data: markdown } = await useAsyncData("component-modal", () => {
-      return {
-        componente: queryContent("/components/modals/component").findOne(),
-        script: queryContent("/components/modals/script").findOne(),
-      };
-    });
-    console.log(markdown);
-    return {
-      markdown,
-    };
+<script setup>
+const { data: MDcomponents } = await useAsyncData("component-modal", () =>
+  queryContent("/components/modals/component").findOne(),
+);
+const { data: MDscript } = await useAsyncData("script-modal", () =>
+  queryContent("/components/modals/script").findOne(),
+);
+const idModal = "modal-1";
+const tabsLists = [
+  {
+    name: "componente",
+    target: "profile",
   },
-  data() {
-    return {
-      idModal: "modal-1",
-      tabsLists: [
-        {
-          name: "componente",
-          target: "profile",
-        },
-        {
-          name: "script",
-          target: "script",
-        },
-      ],
-    };
+  {
+    name: "script",
+    target: "script",
   },
+];
 
-  methods: {
-    initTabs() {
-      document.querySelectorAll("*[data-tabs]").forEach((v) => {
-        let $targetActive = null;
-        let $activeButton = null;
-        v.childNodes.forEach((child) => {
-          child.childNodes.forEach((button) => {
-            const targetID = button.dataset.tabsTarget;
-            const $target = document.getElementById(targetID);
-            if ($target)
-              button.addEventListener("click", () => {
-                button.classList.add("text-red-500");
-                button.classList.add("border-b-red-500");
-                if ($targetActive) {
-                  $activeButton.classList.remove("text-red-500");
-                  $activeButton.classList.remove("border-b-red-500");
-                  $activeButton = button;
-                  $targetActive.classList.add("opacity-0");
-                  setTimeout(() => {
-                    $targetActive.classList.add("hidden");
-                    $target.classList.remove("opacity-0");
-                    $target.classList.remove("hidden");
-                    $targetActive = $target;
-                  }, 300);
-                } else {
-                  $target.classList.remove("opacity-0");
-                  $target.classList.remove("hidden");
-                  $activeButton = button;
-                  setTimeout(() => {
-                    $targetActive = $target;
-                  }, 300);
-                }
-              });
+const initTabs = () => {
+  document.querySelectorAll("*[data-tabs]").forEach((v) => {
+    let $targetActive = null;
+    let $activeButton = null;
+    v.childNodes.forEach((child) => {
+      child.childNodes.forEach((button) => {
+        const targetID = button.dataset.tabsTarget;
+        const $target = document.getElementById(targetID);
+        if ($target)
+          button.addEventListener("click", () => {
+            button.classList.add("text-red-500");
+            button.classList.add("border-b-red-500");
+            if ($targetActive) {
+              $activeButton.classList.remove("text-red-500");
+              $activeButton.classList.remove("border-b-red-500");
+              $activeButton = button;
+              $targetActive.classList.add("opacity-0");
+              setTimeout(() => {
+                $targetActive.classList.add("hidden");
+                $target.classList.remove("opacity-0");
+                $target.classList.remove("hidden");
+                $targetActive = $target;
+              }, 300);
+            } else {
+              $target.classList.remove("opacity-0");
+              $target.classList.remove("hidden");
+              $activeButton = button;
+              setTimeout(() => {
+                $targetActive = $target;
+              }, 300);
+            }
           });
-        });
       });
-    },
-  },
-  mounted() {
-    stateMachineStore().initModal();
-    this.initTabs();
-  },
+    });
+  });
 };
+onMounted(() => {
+  stateMachineStore().initModal();
+  initTabs();
+});
 </script>
 
 <style></style>
