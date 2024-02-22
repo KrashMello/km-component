@@ -2,29 +2,17 @@
   <layouts-sections-components>
     <div class="flex flex-col gap-4">
       <h2 class="text-center text-6xl font-bold">Modales</h2>
-      <km-tabs :tabs="tabsLists" id="modals">
-        <div
-          class="hidden text-gray-500 overflow-x-auto opacity-0 transition-opacity ease-in-out transform duration-300 p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
-          id="profile"
-        >
-          <ContentRendererMarkdown :value="data" />
-        </div>
-        <div
-          class="hidden opacity-0 transition-opacity ease-in-out duration-300 p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
-          id="dashboard"
-          role="tabpanel"
-          aria-labelledby="dashboard-tab"
-        >
-          <p class="text-sm text-gray-500 dark:text-gray-400">
-            This is some placeholder content the
-            <strong class="font-medium text-gray-800 dark:text-white"
-              >Dashboard tab's associated content</strong
-            >. Clicking another tab will toggle the visibility of this one for
-            the next. The tab JavaScript swaps classes to control the content
-            visibility and styling.
-          </p>
-        </div>
-      </km-tabs>
+      <km-tabs-group :tabs="tabsLists" id="modals">
+        <km-tabs-content id="profile">
+          <!-- <ContentRendererMarkdown -->
+          <!--   class="text-xs" -->
+          <!--   :value="markdown.value.component" -->
+          <!-- /> -->
+        </km-tabs-content>
+        <km-tabs-content id="script">
+          <!-- <ContentRendererMarkdown class="text-xs" :value="markdown.value.script" /> -->
+        </km-tabs-content>
+      </km-tabs-group>
       <h3 class="text-3xl font-semibold">Normal</h3>
       <div class="flex flex-wrap gap-3">
         <km-btn
@@ -192,10 +180,16 @@
 <script>
 export default {
   async setup() {
-    const { data } = await useAsyncData("hello", () =>
-      queryContent("/test").findOne(),
-    );
-    return { data };
+    const { data: markdown } = await useAsyncData("component-modal", () => {
+      return {
+        componente: queryContent("/components/modals/component").findOne(),
+        script: queryContent("/components/modals/script").findOne(),
+      };
+    });
+    console.log(markdown);
+    return {
+      markdown,
+    };
   },
   data() {
     return {
@@ -207,16 +201,12 @@ export default {
         },
         {
           name: "script",
-          target: "dashboard",
+          target: "script",
         },
       ],
     };
   },
-  computed: {
-    hello() {
-      return;
-    },
-  },
+
   methods: {
     initTabs() {
       document.querySelectorAll("*[data-tabs]").forEach((v) => {
@@ -252,50 +242,6 @@ export default {
               });
           });
         });
-        // document.querySelectorAll("*[data-tabs-target]").forEach(v=>{
-        //   if(v.dataset.tabsTarget === $id){
-        //     const $tabContentID =
-        //     const $tabContentID =
-        //     document.getElementById("")
-        //     v.addEventListener('click',()=>{
-        //
-        //     })
-        //   }
-        // })
-        // document.querySelectorAll("*[data-tabs-content]").forEach(v=>{
-        //   jjjj
-        // })
-        // const $idContent = `${$id}-content`
-        // const $modal = v;
-        // let $content: any;
-        // document.querySelectorAll("*[data-modal-content]").forEach((v) => {
-        //   if (v.dataset.modalContent === $id) $content = v;
-        // });
-        // document.querySelectorAll("*[data-modal-toggle]").forEach((v) => {
-        //   if (v.dataset.modalToggle === $id)
-        //     v.addEventListener("click", () => {
-        //       $modal?.classList.remove("hidden");
-        //       $modal?.classList.add("flex");
-        //       setTimeout(() => {
-        //         $modal.classList.remove("opacity-0");
-        //         $content.classList.remove("opacity-0");
-        //         $content.classList.remove("-translate-y-full");
-        //         $content.classList.remove("scale-150");
-        //       }, 100);
-        //     });
-        // });
-        // document.querySelectorAll("*[data-modal-hide]").forEach((v) => {
-        //   if (v.dataset.modalHide === $id)
-        //     v.addEventListener("click", () => {
-        //       $content.classList.add("-translate-y-full");
-        //       setTimeout(() => {
-        //         $modal?.classList.remove("flex");
-        //         $modal?.classList.add("hidden");
-        //         $content.classList.add("opacity-0");
-        //         $content.classList.add("scale-150");
-        //       }, 100);
-        //     });
-        // });
       });
     },
   },
@@ -306,4 +252,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style></style>
