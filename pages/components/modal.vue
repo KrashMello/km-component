@@ -4,9 +4,11 @@
       <h2 class="text-center text-6xl font-bold">Modales</h2>
       <km-tabs :tabs="tabsLists" id="modals">
         <div
-          class="hidden text-gray-500 opacity-0 transition-opacity ease-in-out transform duration-300 p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
+          class="hidden text-gray-500 overflow-x-auto opacity-0 transition-opacity ease-in-out transform duration-300 p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
           id="profile"
-        ></div>
+        >
+          <ContentRendererMarkdown :value="data" />
+        </div>
         <div
           class="hidden opacity-0 transition-opacity ease-in-out duration-300 p-4 rounded-lg bg-gray-50 dark:bg-gray-800"
           id="dashboard"
@@ -189,6 +191,12 @@
 
 <script>
 export default {
+  async setup() {
+    const { data } = await useAsyncData("hello", () =>
+      queryContent("/test").findOne(),
+    );
+    return { data };
+  },
   data() {
     return {
       idModal: "modal-1",
@@ -204,7 +212,11 @@ export default {
       ],
     };
   },
-
+  computed: {
+    hello() {
+      return;
+    },
+  },
   methods: {
     initTabs() {
       document.querySelectorAll("*[data-tabs]").forEach((v) => {
