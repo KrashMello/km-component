@@ -23,7 +23,7 @@
   }
 
   :root {
-    --primary: 255 115 179;
+    --primary: 32 61 107;
     --secondary: 111 114 185;
     /* ... */
   }
@@ -42,7 +42,7 @@
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(var(--primary) / 1) rgb(var(--secondary) / 1);
+  scrollbar-color: rgb(var(--primary) / 1) rgb(var(--secondary) / 0);
 }
 
 /* Chrome, Edge, and Safari */
@@ -51,12 +51,12 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: rgb(var(--primary) / 1);
+  background: rgb(var(--primary) / 0);
   border-radius: 5px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: rgb(var(--secondary) / 1);
+  background-color: rgb(var(--secondary) / 0);
   border-radius: 14px;
   border: 3px solid rgb(var(--primary) / 1);
 }
