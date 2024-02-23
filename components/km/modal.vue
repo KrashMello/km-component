@@ -3,12 +3,11 @@
     :id="id"
     tabindex="-1"
     :data-modal="id"
-    :data-modal-hide="id"
-    :class="`hidden opacity-0 transition-opacity backdrop-blur-sm bg-slate-800/50 duration-300 overflow-y-auto overflow-x-hidden fixed ${positions[position]} w-full inset-1 h-full max-h-full`"
+    :class="`hidden duration-300 overflow-y-auto overflow-x-hidden fixed ${positions[position]} w-full inset-1 h-full max-h-full`"
   >
     <div
       :data-modal-content="id"
-      :class="`${typesModal[type]} z-[61] opacity-0 -translate-y-full scale-150 transform transition-transform`"
+      :class="`relative w-full max-h-full ${sizes[size]} z-[61] opacity-0 scale-150 transform transition-transform`"
     >
       <div class="relative bg-white rounded-[1rem] shadow">
         <!-- Modal header -->
@@ -50,11 +49,17 @@
         </div>
       </div>
     </div>
+
+    <div
+      :data-modal-hide="id"
+      :data-modal-backdrop="id"
+      class="bg-red-500 opacity-0 transition-opacity backdrop-blur-sm bg-slate-800/50 absolute z-[59] w-full h-full"
+    ></div>
   </div>
 </template>
 
 <script lang="ts">
-type types = "small" | "default" | "large" | "extra_large";
+type sizeType = "x-small" | "small" | "large" | "x-large";
 type positionModal =
   | "top-left"
   | "top-right"
@@ -68,11 +73,11 @@ type positionModal =
 export default {
   data() {
     return {
-      typesModal: {
-        small: "relative w-full max-w-md max-h-full",
-        default: "relative w-full max-w-lg max-h-full",
-        large: "relative w-full max-w-4xl max-h-full",
-        extra_large: "relative w-full max-w-7xl max-h-full",
+      sizes: {
+        "x-small": "max-w-sm",
+        small: "max-w-md",
+        large: "max-w-4xl",
+        "x-large": "max-w-7xl",
       },
       positions: {
         "top-left": "justify-start items-start",
@@ -99,9 +104,9 @@ export default {
     subtitle: {
       type: String,
     },
-    type: {
-      type: String as PropType<types>,
-      default: "default",
+    size: {
+      type: String as PropType<sizeType>,
+      default: "small",
     },
     position: {
       type: String as PropType<positionModal>,

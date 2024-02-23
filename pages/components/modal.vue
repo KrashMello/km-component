@@ -155,8 +155,8 @@
           center left
         </km-modal>
         <km-btn
-          data-modal-target="modal-center-center"
-          data-modal-toggle="modal-center-center"
+          data-modal-target="modal-x-center"
+          data-modal-toggle="modal-x-center"
           type="button"
           rounded="full"
         >
@@ -168,6 +168,63 @@
           subtitle=""
         >
           center center
+        </km-modal>
+      </div>
+      <h3 class="text-3xl font-semibold">Posicion</h3>
+      <div class="flex flex-wrap gap-3">
+        <km-btn
+          data-modal-target="modal-x-small"
+          data-modal-toggle="modal-x-small"
+          type="button"
+          rounded="full"
+        >
+          extra small
+        </km-btn>
+        <km-modal
+          id="modal-x-small"
+          title="modal extra small"
+          size="x-small"
+          subtitle=""
+        >
+          extra small
+        </km-modal>
+        <km-btn
+          data-modal-target="modal-small"
+          data-modal-toggle="modal-small"
+          type="button"
+          rounded="full"
+        >
+          small
+        </km-btn>
+        <km-modal id="modal-small" title="modal small" size="small" subtitle="">
+          small
+        </km-modal>
+        <km-btn
+          data-modal-target="modal-large"
+          data-modal-toggle="modal-large"
+          type="button"
+          rounded="full"
+        >
+          large
+        </km-btn>
+        <km-modal id="modal-large" title="modal large" size="large" subtitle="">
+          large
+        </km-modal>
+        <km-btn
+          data-modal-target="modal-x-large"
+          data-modal-toggle="modal-x-large"
+          type="button"
+          rounded="full"
+        >
+          extra lager
+        </km-btn>
+        <km-modal
+          id="modal-x-large"
+          title="modal extra large"
+          size="x-large"
+          subtitle=""
+        >
+          extra large
         </km-modal>
       </div>
     </div>
@@ -193,46 +250,8 @@ const tabsLists = [
   },
 ];
 
-const initTabs = () => {
-  document.querySelectorAll("*[data-tabs]").forEach((v) => {
-    let $targetActive = null;
-    let $activeButton = null;
-    v.childNodes.forEach((child) => {
-      child.childNodes.forEach((button) => {
-        const targetID = button.dataset.tabsTarget;
-        const $target = document.getElementById(targetID);
-        if ($target)
-          button.addEventListener("click", () => {
-            button.classList.add("text-red-500");
-            button.classList.add("border-b-red-500");
-            if ($targetActive) {
-              $activeButton.classList.remove("text-red-500");
-              $activeButton.classList.remove("border-b-red-500");
-              $activeButton = button;
-              $targetActive.classList.add("opacity-0");
-              setTimeout(() => {
-                $targetActive.classList.add("hidden");
-                $target.classList.remove("opacity-0");
-                $target.classList.remove("hidden");
-                $targetActive = $target;
-              }, 300);
-            } else {
-              $target.classList.remove("opacity-0");
-              $target.classList.remove("hidden");
-              $activeButton = button;
-              setTimeout(() => {
-                $targetActive = $target;
-              }, 300);
-            }
-          });
-      });
-    });
-  });
-};
 onMounted(() => {
   stateMachineStore().initModal();
-  initTabs();
+  stateMachineStore().initTabs();
 });
 </script>
-
-<style></style>
