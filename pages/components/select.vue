@@ -20,7 +20,7 @@
           list-value="mal_id"
           title="tt"
           id="asdf"
-          @change="search"
+          @find="find"
         ></km-select>
       </div>
     </div>
@@ -39,8 +39,10 @@ const { data: character } = await useAsyncData("character-data", () =>
   $fetch(`https://api.jikan.moe/v4/characters?q=&limit=5&offset=0`),
 );
 let timer = null;
-const list = computed(() => character.value.data);
-const search = async (target) => {
+const list = computed(() => {
+  return character.value.data;
+});
+const find = async (target) => {
   if (timer) clearTimeout(timer);
   timer = setTimeout(async () => {
     await useAsyncData("character-data", () =>
@@ -48,7 +50,7 @@ const search = async (target) => {
         `https://api.jikan.moe/v4/characters?q=${target}&limit=5&offset=0`,
       ),
     );
-  }, 500);
+  }, 300);
 };
 const tabsLists = [
   {
@@ -61,7 +63,6 @@ const tabsLists = [
   },
 ];
 onMounted(async () => {
-  list = character.value.data;
   stateMachineStore().initTabs();
 });
 onUpdated(() => {

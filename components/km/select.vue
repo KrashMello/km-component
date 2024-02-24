@@ -13,8 +13,11 @@
       >
         <input
           placeholder="buscar..."
-          v-model="searchInput"
-          @input="emit('change', $id.value)"
+          @input="
+            () => {
+              emit('find', $id.value);
+            }
+          "
           :id="props.id"
           class="w-full bg-transparent ring-0"
         />
@@ -40,7 +43,6 @@
             @click="
               () => {
                 $id.value = item[props.listLabel];
-                searchInput = item[props.listLabel];
                 emit('update:modelValue', item[props.listValue]);
               }
             "
@@ -71,7 +73,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "find"]);
 const searchInput = "";
 const proxyValue = computed({
   get() {
@@ -93,7 +95,6 @@ const props = defineProps({
   },
   name: {
     type: String,
-    required: true,
   },
   width: {
     type: String,
@@ -125,5 +126,6 @@ const props = defineProps({
 let $id;
 onMounted(() => {
   $id = document.getElementById(props.id);
+  $id.value = "";
 });
 </script>
