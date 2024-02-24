@@ -3,7 +3,7 @@
     <div class="flex flex-col gap-4">
       <h2 class="text-center text-6xl font-bold">Modales</h2>
       <km-tabs-group :tabs="tabsLists" id="modals">
-        <km-tabs-content id="profile">
+        <km-tabs-content id="components">
           <ContentRendererMarkdown class="text-xs" :value="MDcomponents" />
         </km-tabs-content>
         <km-tabs-content id="script">
@@ -155,8 +155,8 @@
           center left
         </km-modal>
         <km-btn
-          data-modal-target="modal-x-center"
-          data-modal-toggle="modal-x-center"
+          data-modal-target="modal-center-henter"
+          data-modal-toggle="modal-center-center"
           type="button"
           rounded="full"
         >
@@ -170,7 +170,7 @@
           center center
         </km-modal>
       </div>
-      <h3 class="text-3xl font-semibold">Posicion</h3>
+      <h3 class="text-3xl font-semibold">tamaño</h3>
       <div class="flex flex-wrap gap-3">
         <km-btn
           data-modal-target="modal-x-small"
@@ -227,6 +227,20 @@
           extra large
         </km-modal>
       </div>
+      <h3 class="text-3xl font-semibold">flat</h3>
+      <div class="flex flex-wrap gap-3">
+        <km-btn
+          data-modal-target="modal-flat"
+          data-modal-toggle="modal-flat"
+          type="button"
+          rounded="full"
+        >
+          flat
+        </km-btn>
+        <km-modal id="modal-flat" title="modal flat" flat subtitle="">
+          flat
+        </km-modal>
+      </div>
     </div>
   </layouts-sections-components>
 </template>
@@ -242,7 +256,7 @@ const idModal = "modal-1";
 const tabsLists = [
   {
     name: "componente",
-    target: "profile",
+    target: "components",
   },
   {
     name: "script",

@@ -7,12 +7,12 @@
   >
     <div
       :data-modal-content="id"
-      :class="`relative w-full max-h-full ${sizes[size]} z-[61] opacity-0 scale-150 transform transition-transform`"
+      :class="`relative w-full max-h-full ${sizes[size]} overflow-hidden ${!flat?'rounded-xl':''} border-xl z-[61] opacity-0 scale-150 transform transition-transform`"
     >
-      <div class="relative bg-white rounded-[1rem] shadow">
+      <div :class="`relative bg-white shadow`">
         <!-- Modal header -->
         <div
-          class="flex bg-slate-800 items-center rounded-t-xl justify-between p-4 md:p-5 border-b dark:border-gray-600"
+          class="flex bg-slate-800 items-center justify-between p-4 md:p-5 border-b dark:border-gray-600"
         >
           <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-white">
@@ -41,7 +41,7 @@
         <slot v-if="!!$slots.footer" name="footer" />
         <div
           v-else
-          class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
+          :class="`flex items-center justify-end p-4 md:p-5 border-t border-gray-200 dark:border-gray-600`"
         >
           <km-btn type="button" rounded="full" :data-modal-hide="id">
             Cerrar
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       sizes: {
-        "x-small": "max-w-sm",
+        "x-small": "max-w-[250px]",
         small: "max-w-md",
         large: "max-w-4xl",
         "x-large": "max-w-7xl",
@@ -100,6 +100,10 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    flat:{
+      type:Boolean,
+      default:false,
     },
     subtitle: {
       type: String,
