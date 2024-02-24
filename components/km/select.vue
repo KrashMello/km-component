@@ -14,7 +14,7 @@
         <input
           placeholder="buscar..."
           v-model="searchInput"
-          @change="emit('input', searchInput)"
+          @input="emit('change', $id.value)"
           :id="props.id"
           class="w-full bg-transparent ring-0"
         />
@@ -40,6 +40,7 @@
             @click="
               () => {
                 $id.value = item[props.listLabel];
+                searchInput = item[props.listLabel];
                 emit('update:modelValue', item[props.listValue]);
               }
             "

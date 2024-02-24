@@ -18,8 +18,9 @@
           :list="list"
           list-label="name"
           list-value="mal_id"
+          title="tt"
           id="asdf"
-          @input="search"
+          @change="search"
         ></km-select>
       </div>
     </div>
