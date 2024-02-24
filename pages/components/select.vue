@@ -6,9 +6,9 @@
         <km-tabs-content id="component">
           <ContentRendererMarkdown class="text-xs" :value="MDcomponents" />
         </km-tabs-content>
-        <km-tabs-content id="script">
-          <ContentRendererMarkdown class="text-xs" :value="MDscript" />
-        </km-tabs-content>
+        <!-- <km-tabs-content id="script"> -->
+        <!--   <ContentRendererMarkdown class="text-xs" :value="MDscript" /> -->
+        <!-- </km-tabs-content> -->
       </km-tabs-group>
 
       <h3 class="text-3xl font-semibold">test</h3>
@@ -32,9 +32,9 @@ const test = "";
 const { data: MDcomponents } = await useAsyncData("component-select", () =>
   queryContent("/components/select/component").findOne(),
 );
-const { data: MDscript } = await useAsyncData("script-select", () =>
-  queryContent("/components/select/script").findOne(),
-);
+// const { data: MDscript } = await useAsyncData("script-select", () =>
+//   queryContent("/components/select/script").findOne(),
+// );
 const { data: character } = await useAsyncData("character-data", () =>
   $fetch(`https://api.jikan.moe/v4/characters?q=&limit=5&offset=0`),
 );
@@ -57,10 +57,10 @@ const tabsLists = [
     name: "componente",
     target: "component",
   },
-  {
-    name: "script",
-    target: "script",
-  },
+  // {
+  //   name: "script",
+  //   target: "script",
+  // },
 ];
 onMounted(async () => {
   stateMachineStore().initTabs();
