@@ -7,46 +7,45 @@
     >
       {{ title }}
     </label>
-    <div class="relative">
-      <input
-        placeholder="buscar..."
-        v-model="proxyValue"
-        :id="id"
-        :class="` ${
-          $attrs.class
-            ? $attrs.class
-            : 'h-9 bg-gray-50 border px-2 flex items-center  border-slate-500 text-orange-500 text-sm rounded-lg focus:ring-slate-600 focus:border-slate-600'
-        }`"
-        class="w-full"
-        @input="$emit('update:modelValue', $event.target.value)"
-      />
-      <input
-        id="vtest"
-        class="hidden"
-        @input="
-          () => {
-            console.log($event.target.value);
-          }
-        "
-      />
+    <div class="relative group/select">
+      <div
+        :class="`group/input w-full z-[12] flex h-9 bg-gray-50 border px-2  items-center  border-slate-500 text-orange-500 text-sm rounded-lg focus:ring-slate-600 focus:border-slate-600`"
+      >
+        <input
+          placeholder="buscar..."
+          v-model="searchInput"
+          @change="emit('input', searchInput)"
+          :id="props.id"
+          class="w-full bg-transparent ring-0"
+        />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="size-9 group-focus-within/input:rotate-180 duration-300"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="#888888"
+            d="M8.2 14q-.225 0-.362-.15T7.7 13.5q0-.05.15-.35l3.625-3.625q.125-.125.25-.175T12 9.3q.15 0 .275.05t.25.175l3.625 3.625q.075.075.113.163t.037.187q0 .2-.137.35T15.8 14z"
+          />
+        </svg>
+      </div>
       <div
         data-select-body
-        class="absolute top-9 w-full overflow-y-auto h-52 bg-red-500"
+        class="absolute duration-200 invisible group-focus-within/select:visible top-9 z-[10] w-full overflow-y-auto h-fit bg-slate-600 text-gray-200"
       >
-        <ul data-select-options class="text-black">
+        <ul data-select-options class="p-2">
           <li
             v-for="(item, i) in list"
             :key="i"
             @click="
               () => {
-                console.log('le diste click al ' + item[props.value]);
-
-                $vtest.value = item[props.value];
+                $id.value = item[props.listLabel];
+                emit('update:modelValue', item[props.listValue]);
               }
             "
-            class="cursor-pointer"
+            class="odd:bg-slate-700 hover:bg-slate-800 p-1 font-semibold cursor-pointer"
           >
-            {{ item[props.label] }}
+            {{ item[props.listLabel] }}
           </li>
         </ul>
       </div>
@@ -72,6 +71,7 @@
 
 <script setup>
 const emit = defineEmits(["update:modelValue"]);
+const searchInput = "";
 const proxyValue = computed({
   get() {
     return props.modelValue;
@@ -80,7 +80,6 @@ const proxyValue = computed({
     emit("update:modelValue", newValue);
   },
 });
-
 const props = defineProps({
   title: {
     type: String,
@@ -103,41 +102,27 @@ const props = defineProps({
     type: String,
     required: true,
   },
-
   list: {
     type: Array,
     default: () => {
       return [];
     },
   },
-  label: {
+  listLabel: {
     type: String,
     default: "name",
   },
-  value: {
+  listValue: {
     type: String,
     default: "code",
   },
+  id: {
+    type: String,
+    required: true,
+  },
 });
-const id = "ss";
-let $select;
-let $vtest;
+let $id;
 onMounted(() => {
-  $select = document.getElementById(id);
-  $vtest = document.getElementById("vtest");
-  console.log($select);
-  // let $list;
-  // $select.childNodes.forEach((body) => {
-  //   if (body.childNodes.length > 0) {
-  //     body.childNodes.forEach((list) => {
-  //       console.log(list.dataset);
-  //       if (list.dataset["selectOptions"] === "") $list = list;
-  //     });
-  //   }
-  // });
-  // console.log($list);
-  // let $li = document.createElement("li");
-  // $li.textContent = "hello world";
-  // $list.appendChild($li);
+  $id = document.getElementById(props.id);
 });
 </script>
