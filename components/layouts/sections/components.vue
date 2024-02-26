@@ -1,7 +1,12 @@
 <template>
-  <km-container class="flex">
-    <section class="h-full w-[20%] border-r-2">
-      <km-nav>
+  <km-container
+    class="flex flex-col gap-y-5 md:flex-wrap text-neutral-700 dark:text-white"
+  >
+    <km-toolbar class="block md:hidden">
+      <SvgGithub class="size-6"></SvgGithub>
+    </km-toolbar>
+    <section class="h-full w-[20%] hidden md:block border-r-2">
+      <km-nav class="">
         <ul
           class="lg:w-44 flex flex-col gap-3"
           v-for="(list, i) in Lists"
@@ -12,7 +17,7 @@
             <km-btn
               type="link"
               border="left"
-              color="purple"
+              color="blue"
               x-small
               :to="link.to"
               >{{ link.title }}</km-btn

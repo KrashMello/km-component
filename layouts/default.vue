@@ -1,20 +1,8 @@
 <template>
-  <div class="fixed z-0 min-h-screen h-full w-full bg-slate-950">
-    <div
-      class="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-    ></div>
-    <div
-      class="absolute bottom-0 right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-    ></div>
-  </div>
-  <div class="flex flex-col w-full z-10 min-h-screen h-full">
-    <km-toolbar
-      height="sm"
-      fixed
-      blur
-      color="bg-purple-400/30"
-      rounded="bottom"
-    >
+  <div
+    class="flex flex-col w-full z-10 min-h-screen h-full bg-neutral-100 dark:bg-neutral-950"
+  >
+    <km-toolbar height="sm" fixed blur color="bg-blue-600/60">
       <img
         class="size-7 rounded-full"
         src="https://pbs.twimg.com/profile_images/1686337808267378688/wQE2O9i3_400x400.jpg"
@@ -22,13 +10,18 @@
       />
       <km-nav>
         <ul class="flex gap-1 items-center">
-          <li v-for="(link, i) in links" :key="i">
+          <li v-for="(link, i) in links" :key="i" class="">
             <km-btn
               type="link"
               :to="link.to"
               x-small
               color="bg-transparent text-white border-purple-600 hover:border-purple-400 hover:border-b"
+              :icon="link.icon"
+              :target="link.target"
             >
+              <template v-if="link.icon" #icon>
+                <component class="size-5" :is="link.iconSrc" />
+              </template>
               {{ link.title }}
             </km-btn>
           </li>
@@ -42,19 +35,19 @@
   </div>
 </template>
 
-<script>
-export default {
-  setup() {
-    const links = [
-      {
-        title: "inicio",
-        to: "/",
-      },
-      { title: "componentes", to: "/components" },
-    ];
-    return {
-      links,
-    };
+<script setup>
+const links = [
+  {
+    title: "inicio",
+    to: "/",
   },
-};
+  { title: "componentes", to: "/components" },
+  {
+    title: "github",
+    icon: true,
+    to: "https://github.com/KrashMello/km-component",
+    iconSrc: resolveComponent("svgGithub"),
+    target: "_blank",
+  },
+];
 </script>
