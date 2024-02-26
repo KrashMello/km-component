@@ -1,60 +1,12 @@
 <template>
-  <NuxtLink
-    v-if="type === 'link'"
-    :to="to"
-    :class="`
-px-5
-${
-  outlined
-    ? `${xSmall ? 'border-[2px]' : small ? 'border-2' : 'border-[3px]'} `
-    : ''
-}
-${xSmall ? 'h-5 text-xs ' : small ? 'h-7 text-sm ' : 'h-10'} 
-${!isColor(color) ? color : colors[color]}
-${width} 
-${roundedSize[rounded]}
-font-semibold hover:bg-opacity-90 active:bg-opacity-75 transition hover:transition-colors duration-400 
-    `"
-  >
-    <slot name="default" />
+  <NuxtLink v-if="type === 'link'" :to="to" :class="classes" :target="target">
+    <slot v-if="!!$slots.icon" name="icon" />
+    <slot v-else />
   </NuxtLink>
-  <button
-    v-if="type === 'button'"
-    v-bind="$attrs"
-    :class="`
-px-5
-${
-  outlined
-    ? `${xSmall ? 'border-[2px]' : small ? 'border-2' : 'border-[3px]'} `
-    : ''
-}
-${xSmall ? 'h-5 text-xs' : small ? 'h-7 text-sm ' : 'h-10'} 
-font-semibold hover:bg-opacity-90 active:bg-opacity-75
-transition hover:transition-colors  hover:scale-110 duration-200 ease-in
-${!isColor(color) ? color : colors[color]}
-${width} 
-${roundedSize[rounded]}
-    `"
-  >
+  <button v-if="type === 'button'" v-bind="$attrs" :class="classes">
     <slot name="default" />
   </button>
-  <a
-    v-if="type === 'anchor'"
-    target=""
-    :class="`
-px-5
-${
-  outlined
-    ? `${xSmall ? 'border-[2px]' : small ? 'border-2' : 'border-[3px]'} `
-    : ''
-}
-${xSmall ? 'h-5 text-xs' : small ? 'h-7 text-sm ' : 'h-10'} 
-font-semibold hover:bg-opacity-90 active:bg-opacity-75 transition hover:transition-colors duration-400 
-${!isColor(color) ? color : colors[color]}
-${width} 
-${roundedSize[rounded]}
-    `"
-  >
+  <a v-if="type === 'anchor'" :target="target" :class="classes">
     <slot name="default" />
   </a>
 </template>
@@ -116,9 +68,9 @@ export default {
       }`,
       blue: `border-blue-400 ${
         outlined
-          ? "text-blue-600 active:bg-blue-400/75 active:text-white hover:text-white hover:bg-blue-400/30"
+          ? "text-blue-600 active:bg-blue-400/75 active:text-white hover:text-blue-700 dark:hover:text-white hover:bg-blue-400/30"
           : isBordered(border)
-            ? `${borderStyle[border]} from-blue-400/30 hover:text-white active:from-blue-400/75 text-blue-400`
+            ? `${borderStyle[border]} from-blue-400/30 hover:text-blue-700 dark:hover:text-white active:from-blue-400/75 text-blue-400`
             : "bg-blue-600"
       }`,
       purple: `border-purple-400 ${
@@ -151,9 +103,38 @@ export default {
     const colorsKey = Object.keys(colors);
     type Colors = (typeof colorsKey)[number];
     const isColor = (x: any): x is Colors => colorsKey.includes(x);
+    const roundedSize = {
+      none: "",
+      full: "rounded-xl",
+      top: "rounded-t-xl",
+      bottom: "rounded-b-xl",
+      left: "rounded-l-xl",
+      right: "rounded-r-xl",
+    };
+    const classes = `
+${props.icon ? " px-5 " : " px-5 "}
+${
+  outlined
+    ? `${
+        props.xSmall
+          ? " border-[2px] "
+          : props.small
+            ? " border-2 "
+            : " border-[3px] "
+      } `
+    : ""
+}
+${props.xSmall ? " h-5 text-xs " : props.small ? " h-7 text-sm " : " h-10 "} 
+${!isColor(props.color) ? props.color : colors[props.color]}
+${props.width} 
+${roundedSize[props.rounded]} 
+font-semibold hover:bg-opacity-90 active:bg-opacity-75 transition hover:transition-colors duration-400 
+    `.replace(/\s+/g, " ");
     return {
       colors,
       isColor,
+      classes,
+      roundedSize,
     };
   },
   props: {
@@ -167,7 +148,7 @@ export default {
     },
     target: {
       type: String as PropType<targets>,
-      default: "/",
+      default: "_self",
     },
     width: {
       type: String,
@@ -197,18 +178,10 @@ export default {
       type: String as PropType<borderType>,
       default: "none",
     },
-  },
-  data() {
-    return {
-      roundedSize: {
-        none: "",
-        full: "rounded-xl",
-        top: "rounded-t-xl",
-        bottom: "rounded-b-xl",
-        left: "rounded-l-xl",
-        right: "rounded-r-xl",
-      },
-    };
+    icon: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
