@@ -17,7 +17,7 @@
             <km-btn
               type="link"
               border="left"
-              color="blue"
+              color="gray"
               x-small
               :to="link.to"
               >{{ link.title }}</km-btn

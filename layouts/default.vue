@@ -2,7 +2,7 @@
   <div
     class="flex flex-col w-full z-10 min-h-screen h-full bg-neutral-100 dark:bg-neutral-950"
   >
-    <km-toolbar height="sm" fixed blur color="bg-blue-600/60">
+    <km-toolbar height="md" fixed blur color="bg-slate-600/60">
       <img
         class="size-7 rounded-full"
         src="https://pbs.twimg.com/profile_images/1686337808267378688/wQE2O9i3_400x400.jpg"
