@@ -1,19 +1,15 @@
 ```html
 <template>
   <div
-    :id="id"
-    tabindex="-1"
-    :data-modal="id"
-    :class="`hidden duration-300 overflow-y-auto overflow-x-hidden fixed ${positions[position]} w-full inset-1 h-full max-h-full`"
+    :class="`${hidden} duration-300 overflow-y-auto overflow-x-hidden fixed ${positions[position]} w-full inset-1 h-full max-h-full`"
   >
     <div
-      :data-modal-content="id"
-      :class="`${typesModal[type]} z-[61] opacity-0 scale-150 transform transition-transform`"
+      :class="`relative w-full max-h-full ${sizes[size]} overflow-hidden ${!flat ? 'rounded-xl' : ''} border-xl z-50 ${scale} ${opacity} transform transition-transform`"
     >
-      <div class="relative bg-white rounded-[1rem] shadow">
+      <div :class="`relative bg-white shadow`">
         <!-- Modal header -->
         <div
-          class="flex bg-slate-800 items-center rounded-t-xl justify-between p-4 md:p-5 border-b dark:border-gray-600"
+          class="flex bg-slate-800 items-center justify-between p-4 md:p-5 border-b dark:border-gray-600"
         >
           <div class="px-4 sm:px-0">
             <h3 class="text-base font-semibold leading-7 text-white">
@@ -29,7 +25,7 @@
           <button
             type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            :data-modal-hide="id"
+            @click="$emit('update:modelValue', false)"
           >
             <svg-close class="w-8" />
           </button>
@@ -42,9 +38,13 @@
         <slot v-if="!!$slots.footer" name="footer" />
         <div
           v-else
-          class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
+          :class="`flex items-center justify-end p-4 md:p-5 border-t border-gray-200 dark:border-gray-600`"
         >
-          <km-btn type="button" rounded="full" :data-modal-hide="id">
+          <km-btn
+            type="button"
+            rounded="full"
+            @click="$emit('update:modelValue', false)"
+          >
             Cerrar
           </km-btn>
         </div>
@@ -52,15 +52,14 @@
     </div>
 
     <div
-      :data-modal-hide="id"
-      :data-modal-backdrop="id"
-      class="bg-red-500 opacity-0 transition-opacity backdrop-blur-sm bg-slate-800/50 absolute z-[59] w-full h-full"
+      :class="`bg-red-500 ${opacity} transition-opacity backdrop-blur-sm bg-slate-800/50 absolute z-40 w-full h-full`"
+      @click="$emit('update:modelValue', false)"
     ></div>
   </div>
 </template>
 
 <script lang="ts">
-  type types = "small" | "default" | "large" | "extra_large";
+  type sizeType = "x-small" | "small" | "large" | "x-large";
   type positionModal =
     | "top-left"
     | "top-right"
@@ -74,11 +73,11 @@
   export default {
     data() {
       return {
-        typesModal: {
-          small: "relative w-full max-w-md max-h-full",
-          default: "relative w-full max-w-lg max-h-full",
-          large: "relative w-full max-w-4xl max-h-full",
-          extra_large: "relative w-full max-w-7xl max-h-full",
+        sizes: {
+          "x-small": "max-w-[250px]",
+          small: "max-w-md",
+          large: "max-w-4xl",
+          "x-large": "max-w-7xl",
         },
         positions: {
           "top-left": "justify-start items-start",
@@ -91,23 +90,49 @@
           "center-right": "justify-end items-center",
           "center-center": "justify-center items-center",
         },
+        scale: "scale-150",
+        hidden: "hidden",
+        opacity: "opacity-0",
       };
     },
+    watch: {
+      modelValue(newVal) {
+        if (newVal) {
+          this.hidden = "flex";
+          this.scale = "scale-150";
+          setTimeout(() => {
+            this.opacity = "";
+            this.scale = "";
+          }, 100);
+        } else {
+          this.scale = "scale-50";
+          setTimeout(() => {
+            this.hidden = "hidden";
+            this.opacity = "opacity-0";
+            this.scale = "scale-150";
+          }, 100);
+        }
+      },
+    },
     props: {
-      id: {
-        type: String,
-        required: true,
+      modelValue: {
+        type: Boolean,
+        default: false,
       },
       title: {
         type: String,
         required: true,
       },
+      flat: {
+        type: Boolean,
+        default: false,
+      },
       subtitle: {
         type: String,
       },
-      type: {
-        type: String as PropType<types>,
-        default: "default",
+      size: {
+        type: String as PropType<sizeType>,
+        default: "small",
       },
       position: {
         type: String as PropType<positionModal>,
