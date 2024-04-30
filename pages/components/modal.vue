@@ -12,158 +12,108 @@
       </km-tabs-group>
       <h3 class="text-3xl font-semibold">Normal</h3>
       <div class="flex flex-wrap gap-3">
-        <km-btn
-          :data-modal-target="idModal"
-          :data-modal-toggle="idModal"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="defaultModal = true">
           default
         </km-btn>
-        <km-modal :id="idModal" title="modal default" subtitle="">
+        <km-modal v-model="defaultModal" title="modal default" subtitle="">
           default
         </km-modal>
       </div>
       <h3 class="text-3xl font-semibold">Posicion</h3>
       <div class="flex flex-wrap gap-3">
-        <km-btn
-          data-modal-target="modal-top-left"
-          data-modal-toggle="modal-top-left"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="topLeft = true">
           top left
         </km-btn>
         <km-modal
-          id="modal-top-left"
+          v-model="topLeft"
           position="top-left"
           title="modal 1"
           subtitle=""
         >
           top left
         </km-modal>
-        <km-btn
-          data-modal-target="modal-top-right"
-          data-modal-toggle="modal-top-right"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="topRight = true">
           top right
         </km-btn>
         <km-modal
-          id="modal-top-right"
+          v-model="topRight"
           position="top-right"
           title="modal 1"
           subtitle=""
         >
           top right
         </km-modal>
-        <km-btn
-          data-modal-target="modal-top-center"
-          data-modal-toggle="modal-top-center"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="topCenter = true">
           top center
         </km-btn>
         <km-modal
-          id="modal-top-center"
+          v-model="topCenter"
           position="top-center"
           title="modal 1"
           subtitle=""
         >
           top center
         </km-modal>
-        <km-btn
-          data-modal-target="modal-bottom-right"
-          data-modal-toggle="modal-bottom-right"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="bottomRight = true">
           bottom right
         </km-btn>
         <km-modal
-          id="modal-bottom-right"
+          v-model="bottomRight"
           position="bottom-right"
           title="modal 1"
           subtitle=""
         >
           bottom right
         </km-modal>
-        <km-btn
-          data-modal-target="modal-bottom-left"
-          data-modal-toggle="modal-bottom-left"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="bottomLeft = true">
           bottom left
         </km-btn>
         <km-modal
-          id="modal-bottom-left"
+          v-model="bottomLeft"
           position="bottom-left"
           title="modal bottom left"
           subtitle=""
         >
           bottom left
         </km-modal>
-        <km-btn
-          data-modal-target="modal-bottom-center"
-          data-modal-toggle="modal-bottom-center"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="bottomCenter = true">
           bottom center
         </km-btn>
         <km-modal
-          id="modal-bottom-center"
+          v-model="bottomCenter"
           position="bottom-center"
           title="modal bottom center"
           subtitle=""
         >
           bottom center
         </km-modal>
-        <km-btn
-          data-modal-target="modal-center-right"
-          data-modal-toggle="modal-center-right"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="centerRight = true">
           center right
         </km-btn>
         <km-modal
-          id="modal-center-right"
+          v-model="centerRight"
           position="center-right"
           title="modal center right"
           subtitle=""
         >
           center right
         </km-modal>
-        <km-btn
-          data-modal-target="modal-center-left"
-          data-modal-toggle="modal-center-left"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="centerLeft = true">
           center left
         </km-btn>
         <km-modal
-          id="modal-center-left"
+          v-model="centerLeft"
           position="center-left"
           title="modal center left"
           subtitle=""
         >
           center left
         </km-modal>
-        <km-btn
-          data-modal-target="modal-center-henter"
-          data-modal-toggle="modal-center-center"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="positionDefault = true">
           position default
         </km-btn>
         <km-modal
-          id="modal-center-center"
+          v-model="positionDefault"
           title="modal center center"
           subtitle=""
         >
@@ -172,54 +122,34 @@
       </div>
       <h3 class="text-3xl font-semibold">tamaño</h3>
       <div class="flex flex-wrap gap-3">
-        <km-btn
-          data-modal-target="modal-x-small"
-          data-modal-toggle="modal-x-small"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="extraSmall = true">
           extra small
         </km-btn>
         <km-modal
-          id="modal-x-small"
+          v-model="extraSmall"
           title="modal extra small"
           size="x-small"
           subtitle=""
         >
           extra small
         </km-modal>
-        <km-btn
-          data-modal-target="modal-small"
-          data-modal-toggle="modal-small"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="small = true">
           small
         </km-btn>
-        <km-modal id="modal-small" title="modal small" size="small" subtitle="">
+        <km-modal v-model="small" title="modal small" size="small" subtitle="">
           small
         </km-modal>
-        <km-btn
-          data-modal-target="modal-large"
-          data-modal-toggle="modal-large"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="large = true">
           large
         </km-btn>
-        <km-modal id="modal-large" title="modal large" size="large" subtitle="">
+        <km-modal v-model="large" title="modal large" size="large" subtitle="">
           large
         </km-modal>
-        <km-btn
-          data-modal-target="modal-x-large"
-          data-modal-toggle="modal-x-large"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="extraLarge = true">
           extra lager
         </km-btn>
         <km-modal
-          id="modal-x-large"
+          v-model="extraLarge"
           title="modal extra large"
           size="x-large"
           subtitle=""
@@ -229,15 +159,10 @@
       </div>
       <h3 class="text-3xl font-semibold">flat</h3>
       <div class="flex flex-wrap gap-3">
-        <km-btn
-          data-modal-target="modal-flat"
-          data-modal-toggle="modal-flat"
-          type="button"
-          rounded="full"
-        >
+        <km-btn type="button" rounded="full" @click="flat = true">
           flat
         </km-btn>
-        <km-modal id="modal-flat" title="modal flat" flat subtitle="">
+        <km-modal v-model="flat" title="modal flat" flat subtitle="">
           flat
         </km-modal>
       </div>
@@ -252,20 +177,31 @@ const { data: MDcomponents } = await useAsyncData("component-modal", () =>
 const { data: MDscript } = await useAsyncData("script-modal", () =>
   queryContent("/components/modals/script").findOne(),
 );
+const defaultModal = defineModel("defaultModal", false);
+const topLeft = defineModel("topLeft", false);
+const topRight = defineModel("topRight", false);
+const topCenter = defineModel("topCenter", false);
+const bottomRight = defineModel("bottomRight", false);
+const bottomLeft = defineModel("bottomLeft", false);
+const bottomCenter = defineModel("bottomCenter", false);
+const centerRight = defineModel("centerRight", false);
+const centerLeft = defineModel("centerLeft", false);
+const positionDefault = defineModel("positionDefault", false);
+const extraSmall = defineModel("extraSmall", false);
+const small = defineModel("small", false);
+const large = defineModel("large", false);
+const extraLarge = defineModel("extraLarge", false);
+const flat = defineModel("flat", false);
+
 const idModal = "modal-1";
 const tabsLists = [
   {
     name: "componente",
     target: "components",
   },
-  {
-    name: "script",
-    target: "script",
-  },
 ];
 
 onMounted(() => {
-  stateMachineStore().initModal();
   stateMachineStore().initTabs();
 });
 </script>
