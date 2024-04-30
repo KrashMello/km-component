@@ -1,13 +1,9 @@
 <template>
   <div
-    :id="id"
-    tabindex="-1"
-    :data-modal="id"
-    :class="`hidden duration-300 overflow-y-auto overflow-x-hidden fixed ${positions[position]} w-full inset-1 h-full max-h-full`"
+    :class="`${hidden} duration-300 overflow-y-auto overflow-x-hidden fixed ${positions[position]} w-full inset-1 h-full max-h-full`"
   >
     <div
-      :data-modal-content="id"
-      :class="`relative w-full max-h-full ${sizes[size]} overflow-hidden ${!flat?'rounded-xl':''} border-xl z-[61] opacity-0 scale-150 transform transition-transform`"
+      :class="`relative w-full max-h-full ${sizes[size]} overflow-hidden ${!flat ? 'rounded-xl' : ''} border-xl z-50 ${scale} ${opacity} transform transition-transform`"
     >
       <div :class="`relative bg-white shadow`">
         <!-- Modal header -->
@@ -28,7 +24,7 @@
           <button
             type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            :data-modal-hide="id"
+            @click="$emit('update:modelValue', false)"
           >
             <svg-close class="w-8" />
           </button>
@@ -43,7 +39,11 @@
           v-else
           :class="`flex items-center justify-end p-4 md:p-5 border-t border-gray-200 dark:border-gray-600`"
         >
-          <km-btn type="button" rounded="full" :data-modal-hide="id">
+          <km-btn
+            type="button"
+            rounded="full"
+            @click="$emit('update:modelValue', false)"
+          >
             Cerrar
           </km-btn>
         </div>
@@ -51,9 +51,8 @@
     </div>
 
     <div
-      :data-modal-hide="id"
-      :data-modal-backdrop="id"
-      class="bg-red-500 opacity-0 transition-opacity backdrop-blur-sm bg-slate-800/50 absolute z-[59] w-full h-full"
+      :class="`bg-red-500 ${opacity} transition-opacity backdrop-blur-sm bg-slate-800/50 absolute z-40 w-full h-full`"
+      @click="$emit('update:modelValue', false)"
     ></div>
   </div>
 </template>
@@ -90,20 +89,42 @@ export default {
         "center-right": "justify-end items-center",
         "center-center": "justify-center items-center",
       },
+      scale: "scale-150",
+      hidden: "hidden",
+      opacity: "opacity-0",
     };
   },
+  watch: {
+    modelValue(newVal) {
+      if (newVal) {
+        this.hidden = "flex";
+        this.scale = "scale-150";
+        setTimeout(() => {
+          this.opacity = "";
+          this.scale = "";
+        }, 100);
+      } else {
+        this.scale = "scale-50";
+        setTimeout(() => {
+          this.hidden = "hidden";
+          this.opacity = "opacity-0";
+          this.scale = "scale-150";
+        }, 100);
+      }
+    },
+  },
   props: {
-    id: {
-      type: String,
-      required: true,
+    modelValue: {
+      type: Boolean,
+      default: false,
     },
     title: {
       type: String,
       required: true,
     },
-    flat:{
-      type:Boolean,
-      default:false,
+    flat: {
+      type: Boolean,
+      default: false,
     },
     subtitle: {
       type: String,
