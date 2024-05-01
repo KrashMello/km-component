@@ -6,20 +6,18 @@
         <km-tabs-content id="components">
           <ContentRendererMarkdown class="text-xs" :value="MDcomponents" />
         </km-tabs-content>
-        <km-tabs-content id="script">
-          <ContentRendererMarkdown class="text-xs" :value="MDscript" />
+      </km-tabs-group>
+
+      <h3 class="text-3xl font-semibold">Posicion</h3>
+      <km-tabs-group :tabs="positionTabsList" id="modalsPosition">
+        <km-tabs-content id="vue">
+          <ContentRendererMarkdown
+            class="text-xs"
+            :value="MDPositionComponents"
+          />
         </km-tabs-content>
       </km-tabs-group>
-      <h3 class="text-3xl font-semibold">Normal</h3>
-      <div class="flex flex-wrap gap-3">
-        <km-btn type="button" rounded="full" @click="defaultModal = true">
-          default
-        </km-btn>
-        <km-modal v-model="defaultModal" title="modal default" subtitle="">
-          default
-        </km-modal>
-      </div>
-      <h3 class="text-3xl font-semibold">Posicion</h3>
+
       <div class="flex flex-wrap gap-3">
         <km-btn type="button" rounded="full" @click="topLeft = true">
           top left
@@ -122,6 +120,15 @@
       </div>
       <h3 class="text-3xl font-semibold">tamaño</h3>
       <div class="flex flex-wrap gap-3">
+        <km-tabs-group :tabs="sizeTabsList" id="size-modals">
+          <km-tabs-content id="size-vue">
+            <ContentRendererMarkdown
+              class="text-xs"
+              :value="MDSizeComponents"
+            />
+          </km-tabs-content>
+        </km-tabs-group>
+
         <km-btn type="button" rounded="full" @click="extraSmall = true">
           extra small
         </km-btn>
@@ -159,6 +166,14 @@
       </div>
       <h3 class="text-3xl font-semibold">flat</h3>
       <div class="flex flex-wrap gap-3">
+        <km-tabs-group :tabs="flatTabsList" id="size-modals">
+          <km-tabs-content id="flat-vue">
+            <ContentRendererMarkdown
+              class="text-xs"
+              :value="MDFlatComponents"
+            />
+          </km-tabs-content>
+        </km-tabs-group>
         <km-btn type="button" rounded="full" @click="flat = true">
           flat
         </km-btn>
@@ -174,8 +189,15 @@
 const { data: MDcomponents } = await useAsyncData("component-modal", () =>
   queryContent("/components/modals/component").findOne(),
 );
-const { data: MDscript } = await useAsyncData("script-modal", () =>
-  queryContent("/components/modals/script").findOne(),
+const { data: MDPositionComponents } = await useAsyncData(
+  "position-modal",
+  () => queryContent("/components/modals/position").findOne(),
+);
+const { data: MDSizeComponents } = await useAsyncData("size-modal", () =>
+  queryContent("/components/modals/size").findOne(),
+);
+const { data: MDFlatComponents } = await useAsyncData("flat-modal", () =>
+  queryContent("/components/modals/flat").findOne(),
 );
 const defaultModal = defineModel("defaultModal", false);
 const topLeft = defineModel("topLeft", false);
@@ -194,6 +216,25 @@ const extraLarge = defineModel("extraLarge", false);
 const flat = defineModel("flat", false);
 
 const idModal = "modal-1";
+
+const positionTabsList = [
+  {
+    name: "vue",
+    target: "vue",
+  },
+];
+const flatTabsList = [
+  {
+    name: "vue",
+    target: "flat-vue",
+  },
+];
+const sizeTabsList = [
+  {
+    name: "vue",
+    target: "size-vue",
+  },
+];
 const tabsLists = [
   {
     name: "componente",
