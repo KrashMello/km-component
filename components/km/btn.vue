@@ -23,12 +23,12 @@ type colorType =
   | "blue"
   | "gray"
   | "purple";
-type borderType = "top" | "bottom" | "left" | "right" | "none";
+type borderType = "top" | "bottom" | "left" | "right";
 export default {
   setup(props) {
     const { border, outlined } = props;
     const borderStyle = {
-      top: "hover:border-t hover:border-t-2 hover:bg-gradient-to-b",
+      top: "hover:border-t-2 border-b-transparent hover:bg-gradient-to-b",
       bottom: "hover:border-b hover:border-b-2 hover:bg-gradient-to-t",
       left: "hover:border-l hover:border-l-2 hover:bg-gradient-to-r",
       right: "hover:border-r hover:border-r-2 hover:bg-gradient-to-l",
@@ -38,61 +38,54 @@ export default {
     const isBordered = (x: any): x is Borders => borderKey.includes(x);
 
     const colors = {
-      red: `border-red-500 ${
+      slate: ` dark:border-slate-300 border-slate-600 ${
         outlined
-          ? "text-red-400 active:bg-red-500/75 active:text-white hover:text-white hover:bg-red-500/30"
+          ? "text-slate-600 dark:text-slate-300 dark:active:bg-slate-300/75 active:bg-slate-600/75 active:text-white hover:text-white dark:hover:bg-slate-300/30 hover:bg-slate-600/30"
           : isBordered(border)
-            ? `${borderStyle[border]} from-red-400/30 hover:text-white active:from-red-400/75  text-red-400`
-            : "bg-red-400"
+            ? `${borderStyle[border]} dark:from-slate-300/30 from-slate-600/30 hover:text-white active:from-slate-600/75 dark:active:from-slate-300/75 dark:text-slate-300  text-slate-600`
+            : "dark:bg-slate-300 bg-slate-600 text-white hover:bg-slate-600/60 dark:hover:bg-slate-300/30"
       }`,
-      danger: ` border-red-500 ${
+      danger: ` dark:border-red-300 border-red-600 ${
         outlined
-          ? "text-red-400 active:bg-red-500/75 active:text-white hover:text-white hover:bg-red-500/30"
+          ? "text-red-600 dark:text-red-300 dark:active:bg-red-300/75 active:bg-red-600/75 active:text-white hover:text-white dark:hover:bg-red-300/30 hover:bg-red-600/30"
           : isBordered(border)
-            ? `${borderStyle[border]} from-red-400/30 hover:text-white active:from-red-400/75  text-red-400`
-            : "bg-red-400"
+            ? `${borderStyle[border]} dark:from-red-300/30 from-red-600/30 hover:text-white active:from-red-600/75 dark:active:from-red-300/75 dark:text-red-300  text-red-600`
+            : "dark:bg-red-300 bg-red-600 text-white hover:bg-red-600/30 dark:hover:bg-red-300/30"
       }`,
-      success: ` border-green-500 ${
+      success: ` dark:border-green-300 border-green-600 ${
         outlined
-          ? "text-green-400 active:bg-green-500/75 active:text-white hover:text-white hover:bg-green-500/30"
+          ? "text-green-600 dark:text-green-300 dark:active:bg-green-300/75 active:bg-green-600/75 active:text-white hover:text-white dark:hover:bg-green-300/30 hover:bg-green-600/30"
           : isBordered(border)
-            ? `${borderStyle[border]} from-green-400/30 hover:text-white active:from-green-400/75  text-green-400`
-            : "bg-green-400"
+            ? `${borderStyle[border]} dark:from-green-300/30 from-green-600/30 hover:text-white active:from-green-600/75 dark:active:from-green-300/75 dark:text-green-300 text-green-600`
+            : "dark:bg-green-300 bg-green-600 text-white hover:bg-green-600/30 dark:hover:bg-green-300/30"
       }`,
-      info: `border-blue-500 ${
+      info: `dark:border-blue-300 border-blue-600 ${
         outlined
-          ? "text-blue-400 active:bg-blue-500/75 active:text-white hover:text-white hover:bg-blue-500/30"
+          ? "text-blue-600 dark:text-blue-300 dark:active:bg-blue-300/75 active:bg-blue-600/75 active:text-white hover:text-white dark:hover:bg-blue-300/30 hover:bg-blue-600/30"
           : isBordered(border)
-            ? `${borderStyle[border]} from-blue-400/30 hover:text-white active:from-blue-400/75 text-blue-400`
-            : "bg-blue-400"
+            ? `${borderStyle[border]} dark:from-blue-300/30 from-blue-600/30 hover:text-white active:from-blue-600/75 dark:active:from-blue-300/75 dark:text-blue-300 text-blue-600`
+            : "dark:bg-blue-300 bg-blue-600 text-white hover:bg-blue-600/30 dark:hover:bg-blue-300/30"
       }`,
-      blue: `border-blue-400 ${
+      warning: ` dark:border-yellow-300 border-yellow-600 ${
         outlined
-          ? "text-blue-600 active:bg-blue-400/75 active:text-white hover:text-blue-700 dark:hover:text-white hover:bg-blue-400/30"
+          ? "text-yellow-600 dark:text-yellow-300 dark:active:bg-yellow-300/75 active:bg-yellow-600/75 active:text-white hover:text-white dark:hover:bg-yellow-300/30 hover:bg-yellow-600/30"
           : isBordered(border)
-            ? `${borderStyle[border]} from-blue-400/30 hover:text-blue-700 dark:hover:text-white active:from-blue-400/75 text-blue-400`
-            : "bg-blue-600"
+            ? `${borderStyle[border]} dark:from-yellow-300/30 from-yellow-600/30 hover:text-white active:from-yellow-600/75 dark:active:from-yellow-300/75 dark:text-yellow-300 text-yellow-600`
+            : "dark:bg-yellow-300 bg-yellow-600 text-white hover:bg-yellow-600/30 dark:hover:bg-yellow-300/30"
       }`,
-      purple: `border-purple-400 ${
+      purple: ` dark:border-purple-300 border-purple-600 ${
         outlined
-          ? "text-purple-600 active:bg-purple-400/75 active:text-white hover:text-white hover:bg-purple-400/30"
+          ? "text-purple-600 dark:text-purple-300 dark:active:bg-purple-300/75 active:bg-purple-600/75 active:text-white hover:text-white dark:hover:bg-purple-300/30 hover:bg-purple-600/30"
           : isBordered(border)
-            ? `${borderStyle[border]}  from-indigo-500 hover:text-white active:from-purple-400/75 text-purple-400`
-            : "bg-purple-600"
+            ? `${borderStyle[border]} dark:from-purple-300/30 from-purple-600/30 hover:text-white active:from-purple-600/75 dark:active:from-purple-300/75 dark:text-purple-300 text-purple-400`
+            : "dark:bg-purple-300 bg-purple-600 text-white hover:bg-purple-600/30 dark:hover:bg-purple-300/30"
       }`,
-      warning: `border-yellow-500 ${
+      gray: ` dark:border-gray-300 border-gray-600 ${
         outlined
-          ? "text-yellow-400 active:bg-yellow-500/75 active:text-white hover:text-white hover:bg-yellow-400/30"
+          ? "text-gray-600 dark:text-gray-300 dark:active:bg-gray-300/75 active:bg-gray-600/75 active:text-white hover:text-white dark:hover:bg-gray-300/30 hover:bg-gray-600/30"
           : isBordered(border)
-            ? `${borderStyle[border]} from-yellow-400/30 hover:text-white active:from-yellow-400/75 text-yellow-400`
-            : "bg-yellow-400"
-      }`,
-      gray: `border-gray-500 ${
-        outlined
-          ? "text-gray-400 active:bg-gray-500/75 bg-gray-400 active:text-white active:bg-gray-400/75 hover:text-white hover:bg-gray-400/30"
-          : isBordered(border)
-            ? `${borderStyle[border]} from-gray-400/30 hover:text-white active:from-gray-400/75 text-gray-400`
-            : "bg-gray-400"
+            ? `${borderStyle[border]} dark:from-gray-300/30 from-gray-600/30 hover:text-white active:from-gray-600/75 dark:active:from-gray-300/75 dark:text-gray-300 text-gray-400`
+            : "dark:bg-gray-300 bg-gray-600 text-white hover:bg-gray-600/30 dark:hover:bg-gray-300/30"
       }`,
       transparent: `bg-transparent text-white hover:bg-white/40 ${
         outlined
@@ -128,7 +121,7 @@ ${props.xSmall ? " h-5 text-xs " : props.small ? " h-7 text-sm " : " h-10 "}
 ${!isColor(props.color) ? props.color : colors[props.color]}
 ${props.width} 
 ${roundedSize[props.rounded]} 
-font-semibold hover:bg-opacity-90 active:bg-opacity-75 transition hover:transition-colors duration-400 
+font-semibold hover:bg-opacity-90 active:bg-opacity-75 transition hover:transition-colors duration-400
     `.replace(/\s+/g, " ");
     return {
       colors,
