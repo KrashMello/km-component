@@ -1,11 +1,12 @@
 <template>
   <header
-    :class="`w-full flex items-center px-10 justify-between 
+    :class="`w-full flex items-center justify-between 
 ${roundedSize[rounded]} 
 ${fixed ? 'fixed z-40' : ''} 
 ${blur ? 'backdrop-blur bg-opacity-50' : ''} 
 ${heightSize[height]} 
 ${!isColor(color) ? color : colors[color]}
+${$attrs.class}
  `"
   >
     <slot />
@@ -20,11 +21,11 @@ type colorType = "danger" | "warning" | "info" | "success" | "blue" | "gray";
 export default {
   setup() {
     const colors = {
-      red: "bg-red-400 border-red-500",
       danger: "bg-red-400 border-red-500",
       success: "bg-green-400 border-green-500",
       info: "bg-blue-400  border-blue-500",
-      blue: "bg-blue-600 border-blue-400",
+      slate:
+        "bg-slate-600  border-slate-700 dark:bg-slate-600 dark:border-slate-700",
       warning: "bg-yellow-400 border-yellow-500",
       gray: "bg-gray-400 border-gray-500",
       transparent: "bg-transparent hover:bg-cyan-500",
