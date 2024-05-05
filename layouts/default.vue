@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col w-full z-10 min-h-screen h-full bg-neutral-100 dark:bg-neutral-950"
+    class="flex flex-col w-full z-10 min-h-screen h-full bg-slate-300 dark:bg-slate-700"
   >
     <km-toolbar height="md" fixed blur color="bg-slate-600/60">
       <img
@@ -28,10 +28,11 @@
         </ul>
       </km-nav>
     </km-toolbar>
-    <main class="text-white flex-1 py-20 z-10 flex h-full w-full">
+    <main
+      class="text-slate-600 dark:text-slate-100 flex-1 py-20 z-10 flex h-full w-full"
+    >
       <NuxtPage />
     </main>
-    <footer class="text-white z-20">footer</footer>
   </div>
 </template>
 
