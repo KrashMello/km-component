@@ -1,12 +1,25 @@
 <template>
-  <NuxtLink v-if="type === 'link'" :to="to" :class="classes" :target="target">
+  <NuxtLink
+    v-if="type === 'link'"
+    :to="to"
+    :class="`${$attrs.class ? $attrs.class : classes}`"
+    :target="target"
+  >
     <slot v-if="!!$slots.icon" name="icon" />
     <slot v-else />
   </NuxtLink>
-  <button v-if="type === 'button'" v-bind="$attrs" :class="classes">
+  <button
+    v-if="type === 'button'"
+    v-bind="$attrs"
+    :class="`${$attrs.class ? $attrs.class : classes}`"
+  >
     <slot name="default" />
   </button>
-  <a v-if="type === 'anchor'" :target="target" :class="classes">
+  <a
+    v-if="type === 'anchor'"
+    :target="target"
+    :class="`${$attrs.class ? $attrs.class : classes}`"
+  >
     <slot name="default" />
   </a>
 </template>
