@@ -1,6 +1,8 @@
 <template>
   <div
-    :class="`relative overflow-x-auto ${shadow ? 'drop-shadow-md' : ''} ${rounded ? 'rounded-lg' : ''}`"
+    :class="`relative overflow-x-auto ${shadow ? 'drop-shadow-md' : ''} ${
+      rounded ? 'rounded-lg' : ''
+    }`"
   >
     <table
       :class="`w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 `"
@@ -17,6 +19,7 @@
           >
             {{ item }}
           </th>
+          <th scope="col" class="px-6 py-3" v-if="actions">ACTIONS</th>
         </tr>
       </thead>
       <tbody>
@@ -65,6 +68,10 @@ export default {
     header: {
       type: Array,
       Required: true,
+    },
+    actions: {
+      type: Boolean,
+      default: false,
     },
   },
 };
