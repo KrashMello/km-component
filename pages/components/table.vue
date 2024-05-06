@@ -5,10 +5,10 @@
       <km-table-row
         v-for="(product, i) in products"
         :key="i"
-        :items="product"
+        :items="product.columns"
       />
     </km-table>
-    <km-table color="purple" shadow>
+    <km-table actions color="purple" shadow>
       <template #header>
         <th scope="col" class="px-6 py-3">codigo</th>
         <th scope="col" class="px-6 py-3">Color</th>
@@ -18,7 +18,8 @@
       <km-table-row
         v-for="(product, i) in products"
         :key="i"
-        :items="product"
+        :items="product.columns"
+        :actions="product.actions"
       />
     </km-table>
   </div>
@@ -31,16 +32,30 @@ definePageMeta({
 const datahead = ["product name", "color", "category", "price"];
 const products = [
   {
-    product: "Apple MacBook Pro 17",
-    color: "Silver",
-    category: "Laptop",
-    price: "$2999",
+    columns: {
+      product: "Apple MacBook Pro 17",
+      color: "Silver",
+      category: "Laptop",
+      price: "$2999",
+    },
+    actions: [
+      { href: "#", icon: "Edit" },
+      { href: "#", icon: "View" },
+      { href: "#", icon: "Delete" },
+    ],
   },
   {
-    product: "Asus Zenbook",
-    color: "Silver",
-    category: "Laptop",
-    price: "$2999",
+    columns: {
+      product: "Asus Zenbook",
+      color: "Silver",
+      category: "Laptop",
+      price: "$2999",
+    },
+    actions: [
+      { href: "#", icon: "Edit" },
+      { href: "#", icon: "View" },
+      { href: "#", icon: "Delete" },
+    ],
   },
 ];
 </script>
