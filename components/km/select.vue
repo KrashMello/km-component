@@ -12,14 +12,14 @@
         :class="`group/input w-full z-[12] flex h-9 bg-gray-50 border px-2  items-center  border-slate-500 text-orange-500 text-sm rounded-lg focus:ring-slate-600 focus:border-slate-600`"
       >
         <input
+          v-model="searchInputData"
           placeholder="buscar..."
           @input="
             () => {
-              emit('find', $id.value);
+              emit('find', searchInputData);
             }
           "
-          :id="props.id"
-          class="w-full bg-transparent ring-0"
+          class="w-full bg-transparent ring-0 outline-none"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,8 @@
             :key="i"
             @click="
               () => {
-                $id.value = item[props.listLabel];
+                console.log(item[props.listLabel]);
+                this.searchInputData = item[props.listLabel];
                 emit('update:modelValue', item[props.listValue]);
               }
             "
@@ -74,15 +75,15 @@
 
 <script setup>
 const emit = defineEmits(["update:modelValue", "find"]);
-const searchInput = "";
-const proxyValue = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(newValue) {
-    emit("update:modelValue", newValue);
-  },
-});
+const searchInputData = defineModel("searchInputData", { default: "" });
+// const proxyValue = computed({
+//   get() {
+//     return props.modelValue;
+//   },
+//   set(newValue) {
+//     emit("update:modelValue", newValue);
+//   },
+// });
 const props = defineProps({
   title: {
     type: String,
@@ -123,9 +124,9 @@ const props = defineProps({
     required: true,
   },
 });
-let $id;
-onMounted(() => {
-  $id = document.getElementById(props.id);
-  $id.value = "";
-});
+// let $id;
+// onMounted(() => {
+//   $id = document.getElementById(props.id);
+//   $id.value = "";
+// });
 </script>
