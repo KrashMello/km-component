@@ -18,9 +18,9 @@
           :list="list"
           list-label="name"
           list-value="mal_id"
+          selected="Boruto Uzumaki"
           title="tt"
-          id="asdf"
-          @find="find"
+          @change="find"
         ></km-select>
       </div>
     </div>
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-const test = "";
+const test = "214604";
 // const { data: MDcomponents } = await useAsyncData("component-select", () =>
 //   queryContent("/components/select/component").findOne(),
 // );

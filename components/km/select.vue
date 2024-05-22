@@ -2,7 +2,6 @@
   <div :class="`flex flex-col gap-3 ${width}`">
     <label
       v-if="title"
-      :for="id"
       class="text-sm font-semibold text-slate-600 tracking-wide dark:text-white"
     >
       {{ title }}
@@ -16,7 +15,7 @@
           placeholder="buscar..."
           @input="
             () => {
-              emit('find', searchInputData);
+              emit('change', searchInputData);
             }
           "
           class="w-full bg-transparent ring-0 outline-none"
@@ -42,9 +41,9 @@
             :key="i"
             @click="
               () => {
-                console.log(item[props.listLabel]);
-                this.searchInputData = item[props.listLabel];
+                searchInputData = item[props.listLabel];
                 emit('update:modelValue', item[props.listValue]);
+                emit('change', searchInputData);
               }
             "
             class="odd:bg-slate-700 hover:bg-slate-800 p-1 font-semibold cursor-pointer"
@@ -54,36 +53,12 @@
         </ul>
       </div>
     </div>
-
-    <!-- <vField -->
-    <!--   :id="id" -->
-    <!--   v-model="proxyValue" -->
-    <!--   :name="name" -->
-    <!--   as="select" -->
-    <!--   @change="$emit('update:modelValue', $event.target.value)" -->
-    <!--   :class="`${ -->
-    <!--     $attrs.class -->
-    <!--       ? $attrs.class -->
-    <!--       : 'bg-gray-50 border border-slate-500 text-orange-500 text-sm rounded-lg focus:ring-slate-600 focus:border-slate-600' -->
-    <!--   }`" -->
-    <!-- > -->
-    <!--   <option selected value="">Seleccione una opción</option> -->
-    <!--   <slot name="default" /> -->
-    <!-- </vField> -->
   </div>
 </template>
 
 <script setup>
-const emit = defineEmits(["update:modelValue", "find"]);
+const emit = defineEmits(["update:modelValue", "change"]);
 const searchInputData = defineModel("searchInputData", { default: "" });
-// const proxyValue = computed({
-//   get() {
-//     return props.modelValue;
-//   },
-//   set(newValue) {
-//     emit("update:modelValue", newValue);
-//   },
-// });
 const props = defineProps({
   title: {
     type: String,
@@ -119,14 +94,13 @@ const props = defineProps({
     type: String,
     default: "code",
   },
-  id: {
+  selected: {
     type: String,
-    required: true,
+    default: "",
   },
 });
-// let $id;
-// onMounted(() => {
-//   $id = document.getElementById(props.id);
-//   $id.value = "";
-// });
+onMounted(() => {
+  emit("change", props.selected);
+  searchInputData.value = props.selected;
+});
 </script>
