@@ -19,8 +19,8 @@
           list-label="name"
           list-value="mal_id"
           selected="Boruto Uzumaki"
-          title="tt"
-          @change="find"
+          title="borutonski"
+          @input="find"
         ></km-select>
       </div>
     </div>

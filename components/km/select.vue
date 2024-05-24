@@ -11,14 +11,10 @@
         :class="`group/input w-full z-[12] flex h-9 bg-gray-50 border px-2  items-center  border-slate-500 text-orange-500 text-sm rounded-lg focus:ring-slate-600 focus:border-slate-600`"
       >
         <input
-          v-model="searchInputData"
+          v-model="searchTitleName"
           placeholder="buscar..."
-          @input="
-            () => {
-              emit('change', searchInputData);
-            }
-          "
-          class="w-full bg-transparent ring-0 outline-none"
+          readonly
+          class="w-full cursor-pointer bg-transparent ring-0 outline-none"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,17 +29,30 @@
       </div>
       <div
         data-select-body
-        class="absolute duration-200 invisible group-focus-within/select:visible top-9 z-[10] w-full overflow-y-auto h-fit bg-slate-600 text-gray-200"
+        class="absolute duration-200 invisible group-focus-within/select:visible top-10 rounded-md z-[10] w-full overflow-y-auto h-fit bg-slate-600 text-gray-200"
       >
         <ul data-select-options class="p-2">
+          <li>
+            <input
+              v-model="searchInputData"
+              placeholder="buscar..."
+              @input="
+                () => {
+                  emit('input', searchInputData);
+                }
+              "
+              class="w-full bg-white text-slate-700 px-3 py-1 rounded-md bg-transparent ring-0 outline-none"
+            />
+          </li>
           <li
             v-for="(item, i) in list"
             :key="i"
             @click="
               () => {
-                searchInputData = item[props.listLabel];
+                searchInputData = '';
+                searchTitleName = item[props.listLabel];
                 emit('update:modelValue', item[props.listValue]);
-                emit('change', searchInputData);
+                emit('input', searchInputData);
               }
             "
             class="odd:bg-slate-700 hover:bg-slate-800 p-1 font-semibold cursor-pointer"
@@ -57,8 +66,9 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["update:modelValue", "change"]);
+const emit = defineEmits(["update:modelValue", "input"]);
 const searchInputData = defineModel("searchInputData", { default: "" });
+const searchTitleName = ref("");
 const props = defineProps({
   title: {
     type: String,
@@ -101,6 +111,6 @@ const props = defineProps({
 });
 onMounted(() => {
   emit("change", props.selected);
-  searchInputData.value = props.selected;
+  searchTitleName.value = props.selected;
 });
 </script>
